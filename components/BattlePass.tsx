@@ -58,7 +58,7 @@ else {
       let { data, error, status } = await supabase
         .from('points')
         .select(`points`)
-        .eq('userId', user.id)
+        .eq('email', user.email)
         .single()
 
       if (status == 406) {
@@ -88,7 +88,7 @@ else {
       countRows()
       var rowNumber = rowCount.toString();
 
-      let { error } = await supabase.from('points').insert({id: rowNumber, points: "0", userId: user.id})
+      let { error } = await supabase.from('points').insert({id: rowNumber, points: "0", email: user.email})
       if (error) throw error
     } catch (error) {
     } finally {

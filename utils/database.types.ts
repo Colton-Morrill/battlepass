@@ -39,17 +39,17 @@ export interface Database {
         Row: {
           id: string
           points: string | null
-          userId: any | null
+          email: any | null
         }
         Insert: {
           id: string
           points?: string | null
-          userId?: any | null
+          email?: any | null
         }
         Update: {
           id?: string
           points?: string | null
-          userId?: any | null
+          email?: any | null
         }
       }
     }
