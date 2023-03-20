@@ -198,7 +198,7 @@ export default function BattlePass({ session }: { session: Session }) {
         else {
             triangle = "border-l-gray-300"
         }
-        return (<div className="w-full relative"><div className={'inner-triangle ' + triangle}><Check className='-ml-[55px] mt-1' size={30} /></div></div>
+        return (<div key={i} className="w-full relative"><div className={'inner-triangle ' + triangle}><Check className='-ml-[55px] mt-1' size={30} /></div></div>
         )})}
       </div>
       <div className='w-full grid grid-cols-5 gap-1 mb-10'>
