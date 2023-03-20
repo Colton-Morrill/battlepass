@@ -69,7 +69,7 @@ export default function Account({ session }: { session: Session }) {
       let { data, error, status } = await supabase
         .from('points')
         .select(`points`)
-        .eq('userId', '682739b4-67c2-4810-a995-a1cc94346751')
+        .eq('userId', '653d963a-e50c-4756-9093-4b0a08833731')
         .single()
 
       if (error && status !== 406) {
