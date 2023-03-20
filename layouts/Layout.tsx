@@ -1,14 +1,18 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Database } from '../utils/database.types'
 
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useUser, Session } from '@supabase/auth-helpers-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 import type { RootState } from '@/store'
 import Head from 'next/head'
+type Profiles = Database['public']['Tables']['profiles']['Row']
+type Points = Database['public']['Tables']['points']['Row']
 
 const navigation = [
   { name: 'Battle Pass', href: '/hub', current: false },
@@ -28,6 +32,8 @@ export default function Layout({ children }: any) {
   const session = useSession()
   const supabase = useSupabaseClient()
   const dispatch = useDispatch<AppDispatch>();
+
+  
   return (
     <>
       {!session ? (

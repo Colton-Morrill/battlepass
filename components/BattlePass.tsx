@@ -14,6 +14,7 @@ export default function BattlePass({ session }: { session: Session }) {
   const supabase = useSupabaseClient<Database>()
   const user = useUser()
   const [loading, setLoading] = useState(true)
+  const [rowCount, setRowCount] = useState(0)
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [website, setWebsite] = useState<Profiles['website']>(null)
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
@@ -60,6 +61,10 @@ else {
         .eq('userId', user.id)
         .single()
 
+      if (status == 406) {
+        createPointsData()
+      }
+
       if (error && status !== 406) {
         throw error
       }
@@ -74,6 +79,43 @@ else {
       setLoading(false)
     }
   }
+
+  async function createPointsData() {
+    try {
+      setLoading(true)
+      if (!user) throw new Error('No user')
+
+      countRows()
+      var rowNumber = rowCount.toString();
+
+      let { error } = await supabase.from('points').insert({id: rowNumber, points: "0", userId: user.id})
+      if (error) throw error
+    } catch (error) {
+    } finally {
+      setLoading(false)
+    }
+}
+
+async function countRows() {
+  try {
+    setLoading(true)
+    if (!user) throw new Error('No user')
+
+    const { count, error } = await supabase
+      .from('points')
+      .select('*', { count: 'exact', head: true })
+
+    if (count) {
+      setRowCount(count);
+    }
+
+    if (error) throw error
+  } catch (error) {
+    console.log(error)
+  } finally {
+    setLoading(false)
+  }
+}
 
   const bpItems = [
     { name: 'Food', src: "/food.webp", rarity: 'common' },
