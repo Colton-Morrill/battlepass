@@ -151,13 +151,13 @@ export default function Account({ session }: { session: Session }) {
 
   const dispatch = useDispatch<AppDispatch>();
   return (
-    <div className="form-widget w-full lg:w-1/2 mx-auto">
+    <div className="form-widget w-full lg:w-1/2 mx-auto content-container bg-[#111827] p-10 rounded-2xl">
       <h1 className='text-3xl font-bold mb-10'>Account Settings</h1>
       <h2 className='text-xl font-bold mb-3'>Public Settings</h2>
       <div className='flex flex-col'>
         <label htmlFor="username">Username</label>
         <input
-          className='rounded bg-zinc-900 border-zinc-800 mt-2'
+          className='rounded bg-slate-800 border-slate-700 mt-2'
           id="username"
           type="text"
           value={username || ''}
@@ -181,7 +181,7 @@ export default function Account({ session }: { session: Session }) {
             <label htmlFor="username">{"Points " + "(" + previousPoints + ")"}</label>
             <p className='text-xs'>After updating points refresh the page!</p>
             <input
-              className='rounded bg-zinc-900 border-zinc-800 mt-3'
+              className='rounded bg-slate-800 border-slate-700 mt-3'
               id="points"
               type="text"
               onChange={(e) => setTalonsPoints(e.target.value)}

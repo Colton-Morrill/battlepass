@@ -44,7 +44,7 @@ export default function Layout({ children }: any) {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="https://www.coltonmorrill.com/vaporwave-01.svg" />
           </Head>
-          <div className='h-screen w-screen flex justify-center items-center'>
+          <div className='h-screen w-screen flex justify-center items-center bg-black'>
             <div className='w-full lg:w-1/3 px-10'>
               <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" providers={[]} />
             </div>
