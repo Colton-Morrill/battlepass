@@ -176,7 +176,7 @@ export default function Account({ session }: { session: Session }) {
 
       {userType === "admin" &&
         <>
-          <h2 className='text-xl font-bold mb-3'>Add Talon's Points</h2>
+          <h2 className='text-xl font-bold mb-3'>Add Talon&apos;s Points</h2>
           <div className='flex flex-col'>
             <label htmlFor="username">{"Points " + "(" + previousPoints + ")"}</label>
             <p className='text-xs'>After updating points refresh the page!</p>
