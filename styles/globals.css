@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'Fortnite';
-  src: url('../assets/ApexRegular.otf');
+  src: url('../assets/Apex-Light.ttf');
   font-weight: 400;
   font-style: normal;
   }
@@ -135,4 +135,22 @@ input.error:-webkit-autofill{
 
 .content-container {
   height: calc(100vh - 144px);
+}
+
+.background {
+  background-image: url('https://i.redd.it/klx08iqeanm21.png');
+  background-size: cover;
+
+}
+
+.inner-triangle{
+  border-right: 60px solid transparent;
+  border-left: 60px solid;
+  border-bottom: 60px solid transparent;
+  height: 0;
+  width: 0;
+  top:16px;
+  position: absolute;
+  left: 16px;
+  z-index: 2;
 }

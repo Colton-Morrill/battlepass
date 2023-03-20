@@ -1,9 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import { Check } from 'lucide-react';
 
-const PassItem = ({ ...props }: any) => {
+const PassItem = ({ progress, ...props }: any) => {
     const data = props;
     var rarity = null;
+    var triangle = null;
     if (data.props.rarity === "legendary") {
         rarity = "bg-yellow-600 border-yellow-400"
     }
@@ -20,7 +22,7 @@ const PassItem = ({ ...props }: any) => {
         rarity = "bg-gray-400 border-gray-300"
     }
     return (
-        <div className='col-span-1'>
+        <div className='col-span-1 p-4 bg-black/25'>
             <div className={rarity + ' border-4 p-4 relative flex-none w-full h-full'}>
                 <Image className="object-cover relative rounded" src={data.props.src} alt="image" fill />
             </div>
