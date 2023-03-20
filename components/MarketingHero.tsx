@@ -166,7 +166,7 @@ export default function Example() {
                                     <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                         <div className="relative">
                                             <img
-                                                src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71UniX8nN-L._SY500_.jpg"
+                                                src="apex.jpg"
                                                 alt=""
                                                 className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                             />
@@ -176,7 +176,7 @@ export default function Example() {
                                     <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                                         <div className="relative">
                                             <img
-                                                src="https://dynamicmedia.livenationinternational.com/Media/s/k/j/3fa524c8-6e4c-419f-9e9f-28bcbe080777.jpg?auto=webp&width=408"
+                                                src="vbucks.webp"
                                                 alt=""
                                                 className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                             />
@@ -184,7 +184,7 @@ export default function Example() {
                                         </div>
                                         <div className="relative">
                                             <img
-                                                src="https://media.gamestop.com/i/gamestop/11097408/Fortnite-1000-V-Bucks?$pdp$$&fmt=webp"
+                                                src="snot.webp"
                                                 alt=""
                                                 className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                             />
@@ -194,7 +194,7 @@ export default function Example() {
                                     <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                                         <div className="relative">
                                             <img
-                                                src="https://images.foxtv.com/static.fox9.com/www.fox9.com/content/uploads/2022/09/764/432/GettyImages-454320079.jpg?ve=1&tl=1"
+                                                src="seats.webp"
                                                 alt=""
                                                 className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                             />
@@ -202,7 +202,7 @@ export default function Example() {
                                         </div>
                                         <div className="relative">
                                             <img
-                                                src="https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=1600&h=1066&q=medium"
+                                                src="food.webp"
                                                 alt=""
                                                 className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                             />

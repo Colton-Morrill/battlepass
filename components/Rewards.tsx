@@ -10,7 +10,7 @@ export default function Rewards() {
           <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 relative">
               <img
-                src="https://149354818.v2.pressablecdn.com/wp-content/uploads/2023/02/NOT-live-photo.jpeg"
+                src="live.jpeg"
                 alt="Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
                 className="object-cover object-center group-hover:opacity-75"
               />
@@ -28,7 +28,7 @@ export default function Rewards() {
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full relative">
               <img
-                src="https://store-images.s-microsoft.com/image/apps.47297.65471472762928511.11f5eb5b-9b71-4db0-a90c-b29ecbb3fc10.e97006ff-95a1-4d45-af16-6f0a4328848f?q=90&w=480&h=270"
+                src="chest.jpg"
                 alt="Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />
@@ -49,7 +49,7 @@ export default function Rewards() {
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full relative">
               <img
-                src="https://media.nbcchicago.com/2022/09/GettyImages-535640865.jpg?quality=85&strip=all&resize=850%2C478"
+                src="movie.webp"
                 alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />

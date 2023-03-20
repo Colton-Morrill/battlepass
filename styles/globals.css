@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'Fortnite';
-  src: url('../assets/fortnite.otf');
+  src: url('../assets/ApexRegular.otf');
   font-weight: 400;
   font-style: normal;
   }
@@ -131,4 +131,8 @@ input.error:-webkit-autofill{
 
 .pass-text {
   font-family: 'Fortnite', 'Serif';
+}
+
+.content-container {
+  height: calc(100vh - 144px);
 }

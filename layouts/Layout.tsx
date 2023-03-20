@@ -78,8 +78,8 @@ export default function Layout({ children }: any) {
                             className={classNames(
                               item.current
                                 ? 'border-indigo-500 text-gray-900'
-                                : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700',
-                              'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium'
+                                : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text',
+                              'inline-flex items-center text-lg border-b-2 px-1 pt-1 font-medium'
                             )}
                             aria-current={item.current ? 'page' : undefined}
                           >
@@ -92,7 +92,7 @@ export default function Layout({ children }: any) {
                         <button
                           onClick={() => supabase.auth.signOut()}
                           className={classNames(
-                            'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium'
+                            'border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium'
                           )}
                         >
                           Sign Out
