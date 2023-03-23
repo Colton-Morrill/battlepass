@@ -8,7 +8,7 @@ export default function Example() {
   return (
     <>
       <Head>
-        <title>Midnight Island</title>
+        <title>Battle Pass</title>
         <meta name="description" content="Midnight Island Battle Pass" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="https://www.coltonmorrill.com/vaporwave-01.svg" />

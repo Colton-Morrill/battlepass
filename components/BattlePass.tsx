@@ -162,7 +162,7 @@ export default function BattlePass({ session }: { session: Session }) {
       <div className='w-full flex justify-between mb-10'>
         <h1 className='text-3xl font-bold pass-text'>Welcome <span className='text-red-500'>{username}</span></h1>
         <div className='flex items-center gap-2'>
-          <Image src="/legend_tokens.png" alt="star" className='-mt-2' width={30} height={30} />
+          <Image src="/legendtokens.png" alt="star" className='-mt-2' width={30} height={30} />
           <h2 className='pass-text text-2xl leading-[0.5rem]'>{points}</h2>
         </div>
       </div>
