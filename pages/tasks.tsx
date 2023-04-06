@@ -26,7 +26,7 @@ const posts = [
         title: 'Take care of the Guinea Pigs',
         href: '#',
         description:
-            'Clean out the cage and sweep it with the electric broom. Feed them 1 cup of veggies. Fill up both water bottles. After they are done eating separate them and feed each guinea pig their pellets.',
+            'Clean out the cage and sweep it with the electric broom. Feed them 1 cup of veggies. Fill up both water bottles. After they are done eating, separate them and feed each guinea pig their pellets.',
         imageUrl:
             'https://images.pexels.com/photos/12916343/pexels-photo-12916343.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         date: '5 Points',
@@ -115,7 +115,7 @@ const Tasks: NextPageWithLayout = () => {
                     <div className="mx-auto max-w-2xl text-center">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Tasks</h2>
                         <p className="mt-2 text-lg leading-8 text-gray-600">
-                            Complete the below tasks to earn points. <br></br>Report your tasks to Colton/Anna to earn your points.
+                            Complete the below tasks to earn points.
                         </p>
                     </div>
                     <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
