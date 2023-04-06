@@ -17,6 +17,7 @@ type Points = Database['public']['Tables']['points']['Row']
 const navigation = [
   { name: 'Battle Pass', href: '/hub', current: false },
   { name: 'Account', href: '/account', current: false },
+  { name: 'Tasks', href: '/tasks', current: false },
 ]
 
 function classNames(...classes: any) {

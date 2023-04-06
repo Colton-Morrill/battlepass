@@ -18,7 +18,7 @@ export default function Account({ session }: { session: Session }) {
   const [website, setWebsite] = useState<Profiles['website']>(null)
   const [points, setTalonsPoints] = useState<Points['points']>(null)
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
-  const [email, setUserId] = useState('cjmorrill@gmail.com')
+  const [email, setUserId] = useState('talonjacobmorrill@gmail.com')
   const blank = "0"
 
   useEffect(() => {
@@ -69,12 +69,14 @@ export default function Account({ session }: { session: Session }) {
       let { data, error, status } = await supabase
         .from('points')
         .select(`points`)
-        .eq('email', 'cjmorrill@gmail.com')
+        .eq('email', 'talonjacobmorrill@gmail.com')
         .single()
 
       if (error && status !== 406) {
         throw error
       }
+
+      console.log(data);
 
       if (data) {
         setOldPoints(data.points)
