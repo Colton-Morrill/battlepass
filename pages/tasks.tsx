@@ -5,6 +5,8 @@ import { ReactElement } from 'react'
 import BattlePass from '@/components/BattlePass'
 import { useState } from 'react'
 import Head from 'next/head'
+import emailjs from '@emailjs/browser';
+import { useRef } from 'react'
 
 const posts = [
     {
@@ -84,6 +86,21 @@ const posts = [
 const Tasks: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
+
+    const form = useRef<HTMLFormElement>(null);
+
+    const sendEmail = (e: any) => {
+        e.preventDefault();
+
+        emailjs.sendForm('service_0c0ssyl', 'template_bua0q2n', form.current, 'wbAzpgcSEVRID5A6w')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+    };
+
+
     return (
         <>
             <Head>
@@ -101,8 +118,8 @@ const Tasks: NextPageWithLayout = () => {
                         </p>
                     </div>
                     <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {posts.map((post) => (
-                            <article key={post.id} className="flex flex-col items-start justify-between">
+                        {posts.map((post, i) => (
+                            <article key={i} className="flex flex-col items-start justify-between">
                                 <div className="relative w-full">
                                     <img
                                         src={post.imageUrl}
@@ -133,8 +150,13 @@ const Tasks: NextPageWithLayout = () => {
                                         <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
                                     </div>
                                 </div>
+                                <form className="mt-3" ref={form} onSubmit={sendEmail}>
+                                    <input readOnly className="hidden block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" name="message" value={post.title + " worth " + post.date} />
+                                    <input className="hover:cursor-pointer rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" type="submit" value="Complete Task" />
+                                </form>
                             </article>
                         ))}
+
                     </div>
                 </div>
             </div>
