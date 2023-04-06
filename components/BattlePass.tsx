@@ -157,16 +157,16 @@ export default function BattlePass({ session }: { session: Session }) {
 
   const dispatch = useDispatch<AppDispatch>();
   return (
-    <div className='w-full content-container flex justify-center items-center flex-col'>
+    <div className='w-full content-container flex justify-start lg:justify-center items-center flex-col'>
       <div className='w-[0%] w-[33%] w-[55%] w-[80%] w-[100%] hidden'></div>
-      <div className='w-full flex justify-between mb-10'>
+      <div className='w-full flex justify-between mb-10 px-10 lg:px-0'>
         <h1 className='text-3xl font-bold pass-text'>Welcome <span className='text-red-500'>{username}</span></h1>
         <div className='flex items-center gap-2'>
           <Image src="/legendtokens.png" alt="star" className='-mt-2' width={30} height={30} />
           <h2 className='pass-text text-2xl leading-[0.5rem]'>{points}</h2>
         </div>
       </div>
-      <div className='w-full grid grid-cols-5 gap-1 relative border-b-4 border-orange-500'>
+      <div className='w-full hidden lg:grid  grid-cols-5 gap-1 relative border-b-4 border-orange-500'>
         {bpItems.map((item, i) => (
           <div key={i} className='w-full h-full flex justify-center items-center bg-black/25'>
             <div className='w-10 h-10 flex items-center justify-center pass-text'>
@@ -175,12 +175,12 @@ export default function BattlePass({ session }: { session: Session }) {
           </div>
         ))}
       </div>
-      <div className='w-full grid grid-cols-5 gap-1'>
+      <div className='w-full hidden lg:grid  grid-cols-5 gap-1'>
         {bpItems.map((item, i) => (
           <h3 key={i} className='text-center pass-text text-2xl bg-black/25 pt-3'>{item.name}</h3>
         ))}
       </div>
-      <div className='w-full grid grid-cols-5 gap-1'>
+      <div className='w-full hidden lg:grid  grid-cols-5 gap-1'>
        { slicedArray.map((item, i) => {
           var triangle = null;
            if (item.rarity === "legendary") {
@@ -201,9 +201,15 @@ export default function BattlePass({ session }: { session: Session }) {
         return (<div key={i} className="w-full relative"><div className={'inner-triangle ' + triangle}><Check className='-ml-[55px] mt-1' size={30} /></div></div>
         )})}
       </div>
-      <div className='w-full grid grid-cols-5 gap-1 mb-10'>
+      <div className='hidden lg:grid w-full grid-cols-5 gap-1 mb-10'>
        { bpItems.map((item, i) => {
         return (<PassItem key={i} props={item} progress={barWidth}></PassItem>
+        )})}
+      </div>
+      <div className='flex flex-col lg:hidden w-full grid-cols-5 gap-1 mb-10'>
+       { bpItems.map((item, i) => {
+        return (
+        <PassItem key={i} props={item} progress={barWidth}></PassItem>
         )})}
       </div>
     </div>

@@ -124,9 +124,9 @@ export default function Layout({ children }: any) {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
-                            : 'border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800',
-                          'block border-l-4 py-2 pl-3 pr-4 text-base font-medium'
+                          ? 'border-indigo-500 text-gray-900'
+                          : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text ml-3',
+                        'block text-lg border-b-2 px-1 pt-1 font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
@@ -134,7 +134,14 @@ export default function Layout({ children }: any) {
                       </Disclosure.Button>
                     ))}
                   </div>
-
+                  <button
+                          onClick={() => supabase.auth.signOut()}
+                          className={classNames(
+                            'ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium'
+                          )}
+                        >
+                          Sign Out
+                        </button>
                 </Disclosure.Panel>
               </>
             )}
