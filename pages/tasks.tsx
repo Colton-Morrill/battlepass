@@ -95,6 +95,7 @@ const Tasks: NextPageWithLayout = () => {
         emailjs.sendForm('service_0c0ssyl', 'template_bua0q2n', form.current, 'wbAzpgcSEVRID5A6w')
             .then((result) => {
                 console.log(result.text);
+                alert('Task Completed!')
             }, (error) => {
                 console.log(error.text);
             });
