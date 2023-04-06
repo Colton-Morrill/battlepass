@@ -158,7 +158,7 @@ const Tasks: NextPageWithLayout = () => {
                                             <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
                                         </div>
                                     </div>
-                                    <button onClick={() => sendEmail(message)} className="hover:cursor-pointer rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
+                                    <button onClick={() => sendEmail(message)} className="mt-3 hover:cursor-pointer rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
                                 </article>)
                             })}
                         </div>
