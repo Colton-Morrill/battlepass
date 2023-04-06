@@ -87,12 +87,19 @@ const Tasks: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
 
+
     const form = useRef<HTMLFormElement>(null);
 
-    const sendEmail = (e: any) => {
-        e.preventDefault();
+    const [buttonCooldown, setButtonCoolDown] = useState(false)
 
-        emailjs.sendForm('service_0c0ssyl', 'template_bua0q2n', form.current, 'wbAzpgcSEVRID5A6w')
+    const sendEmail = (message) => {
+        alert(message);
+
+        var templateParams = {
+            message: message,
+        };
+ 
+        emailjs.send('service_0c0ssyl', 'template_bua0q2n', templateParams, 'wbAzpgcSEVRID5A6w')
             .then((result) => {
                 console.log(result.text);
                 alert('Task Completed!')
@@ -100,7 +107,6 @@ const Tasks: NextPageWithLayout = () => {
                 console.log(error.text);
             });
     };
-
 
     return (
         <>
@@ -118,47 +124,44 @@ const Tasks: NextPageWithLayout = () => {
                             Complete the below tasks to earn points.
                         </p>
                     </div>
-                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {posts.map((post, i) => (
-                            <article key={i} className="flex flex-col items-start justify-between">
-                                <div className="relative w-full">
-                                    <img
-                                        src={post.imageUrl}
-                                        alt=""
-                                        className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                                    />
-                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                                </div>
-                                <div className="max-w-xl">
-                                    <div className="mt-8 flex items-center gap-x-4 text-xs">
-                                        <time dateTime={post.datetime} className="text-gray-500">
-                                            {post.date}
-                                        </time>
-                                        <a
-                                            href={post.category.href}
-                                            className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                                        >
-                                            {post.category.title}
-                                        </a>
+                        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                            {posts.map((post, i) => {
+                                const message = (post.title + " Worth " + post.date)
+                                return (<article key={i} className="flex flex-col items-start justify-between">
+                                    <div className="relative w-full">
+                                        <img
+                                            src={post.imageUrl}
+                                            alt=""
+                                            className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                        />
+                                        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                                     </div>
-                                    <div className="group relative">
-                                        <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                            <a href={post.href}>
-                                                <span className="absolute inset-0" />
-                                                {post.title}
+                                    <div className="max-w-xl">
+                                        <div className="mt-8 flex items-center gap-x-4 text-xs">
+                                            <time dateTime={post.datetime} className="text-gray-500">
+                                                {post.date}
+                                            </time>
+                                            <a
+                                                href={post.category.href}
+                                                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+                                            >
+                                                {post.category.title}
                                             </a>
-                                        </h3>
-                                        <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
+                                        </div>
+                                        <div className="group relative">
+                                            <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                                <a href={post.href}>
+                                                    <span className="absolute inset-0" />
+                                                    {post.title}
+                                                </a>
+                                            </h3>
+                                            <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <form className="mt-3" ref={form} onSubmit={sendEmail}>
-                                    <input readOnly className="hidden block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" name="message" value={post.title + " worth " + post.date} />
-                                    <input className="hover:cursor-pointer rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" type="submit" value="Complete Task" />
-                                </form>
-                            </article>
-                        ))}
-
-                    </div>
+                                    <button onClick={() => sendEmail(message)} className="hover:cursor-pointer rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
+                                </article>)
+                            })}
+                        </div>
                 </div>
             </div>
         </>
