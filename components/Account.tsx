@@ -20,6 +20,8 @@ export default function Account({ session }: { session: Session }) {
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [email, setUserId] = useState('talonjacobmorrill@gmail.com')
   const blank = "0"
+  const [inputReset, setInputReset] = useState('')
+
 
   useEffect(() => {
     getTalonsPoints()
@@ -69,7 +71,7 @@ export default function Account({ session }: { session: Session }) {
       let { data, error, status } = await supabase
         .from('points')
         .select(`points`)
-        .eq('email', 'talonjacobmorrill@gmail.com')
+        .eq('id', '0')
         .single()
 
       if (error && status !== 406) {
@@ -80,7 +82,6 @@ export default function Account({ session }: { session: Session }) {
 
       if (data) {
         setOldPoints(data.points)
-        setTalonsPoints(data.points)
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -141,6 +142,8 @@ export default function Account({ session }: { session: Session }) {
 
       let { error } = await supabase.from('points').upsert(updates)
       if (error) throw error
+      getTalonsPoints()
+      setTalonsPoints("")
       alert('Profile updated!')
     } catch (error) {
       alert('Error updating the data!')
@@ -152,6 +155,7 @@ export default function Account({ session }: { session: Session }) {
 
 
   const dispatch = useDispatch<AppDispatch>();
+
   return (
     <div className="form-widget w-full lg:w-1/2 mx-auto content-container bg-[#111827] p-10 rounded-2xl">
       <h1 className='text-3xl font-bold mb-10'>Account Settings</h1>
@@ -180,13 +184,13 @@ export default function Account({ session }: { session: Session }) {
         <>
           <h2 className='text-xl font-bold mb-3'>Add Talon&apos;s Points</h2>
           <div className='flex flex-col'>
-            <label htmlFor="username">{"Points " + "(" + previousPoints + ")"}</label>
-            <p className='text-xs'>After updating points refresh the page!</p>
+            <label htmlFor="username">{"Talon's Points " + "(" + previousPoints + ")"}</label>
             <input
               className='rounded bg-slate-800 border-slate-700 mt-3'
               id="points"
               type="text"
               onChange={(e) => setTalonsPoints(e.target.value)}
+              value={points}
             />
           </div>
           <div className='flex justify-end'>
