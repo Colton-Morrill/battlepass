@@ -7,98 +7,100 @@ import { useState } from 'react'
 import Head from 'next/head'
 import emailjs from '@emailjs/browser';
 import { useRef } from 'react'
+import { useEffect } from 'react'
+import { useUser, Session } from '@supabase/auth-helpers-react'
+import { Database } from '../utils/database.types'
+import { setAdmin, setMember } from '@/slices/userTypeSlice'
+type Tasks = Database['public']['Tables']['tasks']['Row']
 
-const posts = [
-    {
-        id: 1,
-        title: 'Wash the Dishes',
-        href: '#',
-        description:
-            'Wash and dry the dishes before dinner. Make sure that there is no soap and food bits on the dishes when you wash them. After placing the dishes on the drying mat, wipe down the counters and clean the sink.',
-        imageUrl:
-            'https://images.pexels.com/photos/4108726/pexels-photo-4108726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        date: '5 Points',
-        datetime: '2020-03-16',
-        category: { title: 'Daily', href: '#' }
-    },
-    {
-        id: 1,
-        title: 'Take care of the Guinea Pigs',
-        href: '#',
-        description:
-            'Clean out the cage and sweep it with the electric broom. Feed them 1 cup of veggies. Fill up both water bottles. After they are done eating, separate them and feed each guinea pig their pellets.',
-        imageUrl:
-            'https://images.pexels.com/photos/12916343/pexels-photo-12916343.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        date: '5 Points',
-        datetime: '2020-03-16',
-        category: { title: 'Daily', href: '#' }
-    },
-    {
-        id: 1,
-        title: 'Clean up bed.',
-        href: '#',
-        description:
-            'In the morning, fold your sheets and put them in the closet along with your pillow. Then return the couch into \'couch\' position and push it up against the wall.',
-        imageUrl:
-            'https://images.pexels.com/photos/1907784/pexels-photo-1907784.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        date: '5 Points',
-        datetime: '2020-03-16',
-        category: { title: 'Daily', href: '#' }
-    },
-    {
-        id: 1,
-        title: 'Complete your daily lessons.',
-        href: '#',
-        description:
-            'In the beginning of the day, we will decide which lessons you need to complete. We will check at the end of the day if you have completed your lessons.',
-        imageUrl:
-            'https://images.pexels.com/photos/327882/pexels-photo-327882.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        date: '5 Points',
-        datetime: '2020-03-16',
-        category: { title: 'Daily', href: '#' }
-    },
-    {
-        id: 1,
-        title: 'Read a chapter book.',
-        href: '#',
-        description:
-            'We will take you to the library and you can pick out a chapter book. After reading the book you will do a 1 page book report or you can do a verbal book report and tell us about the book.',
-        imageUrl:
-            'https://images.pexels.com/photos/4170629/pexels-photo-4170629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        date: '20 Points',
-        datetime: '2020-03-16',
-        category: { title: 'Bi-Weekly', href: '#' }
-    },
-    {
-        id: 1,
-        title: 'Sunday Funday.',
-        href: '#',
-        description:
-            'Every Sunday, you can choose to help Colton to do laundry or help Anna do grocery shopping. Whichever you choose will earn you 10 points.',
-        imageUrl:
-            'https://images.pexels.com/photos/13092853/pexels-photo-13092853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        date: '10 Points',
-        datetime: '2020-03-16',
-        category: { title: 'Weekly', href: '#' }
-    },
-]
+
+// const posts = [
+//     {
+//         id: 1,
+//         title: 'Wash the Dishes',
+//         href: '#',
+//         description:
+//             'Wash and dry the dishes before dinner. Make sure that there is no soap and food bits on the dishes when you wash them. After placing the dishes on the drying mat, wipe down the counters and clean the sink.',
+//         imageUrl:
+//             'https://images.pexels.com/photos/4108726/pexels-photo-4108726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//         date: '5 Points',
+//         datetime: '2020-03-16',
+//         category: { title: 'Daily', href: '#' }
+//     },
+//     {
+//         id: 1,
+//         title: 'Take care of the Guinea Pigs',
+//         href: '#',
+//         description:
+//             'Clean out the cage and sweep it with the electric broom. Feed them 1 cup of veggies. Fill up both water bottles. After they are done eating, separate them and feed each guinea pig their pellets.',
+//         imageUrl:
+//             'https://images.pexels.com/photos/12916343/pexels-photo-12916343.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//         date: '5 Points',
+//         datetime: '2020-03-16',
+//         category: { title: 'Daily', href: '#' }
+//     },
+//     {
+//         id: 1,
+//         title: 'Clean up bed.',
+//         href: '#',
+//         description:
+//             'In the morning, fold your sheets and put them in the closet along with your pillow. Then return the couch into \'couch\' position and push it up against the wall.',
+//         imageUrl:
+//             'https://images.pexels.com/photos/1907784/pexels-photo-1907784.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//         date: '5 Points',
+//         datetime: '2020-03-16',
+//         category: { title: 'Daily', href: '#' }
+//     },
+//     {
+//         id: 1,
+//         title: 'Complete your daily lessons.',
+//         href: '#',
+//         description:
+//             'In the beginning of the day, we will decide which lessons you need to complete. We will check at the end of the day if you have completed your lessons.',
+//         imageUrl:
+//             'https://images.pexels.com/photos/327882/pexels-photo-327882.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//         date: '5 Points',
+//         datetime: '2020-03-16',
+//         category: { title: 'Daily', href: '#' }
+//     },
+//     {
+//         id: 1,
+//         title: 'Read a chapter book.',
+//         href: '#',
+//         description:
+//             'We will take you to the library and you can pick out a chapter book. After reading the book you will do a 1 page book report or you can do a verbal book report and tell us about the book.',
+//         imageUrl:
+//             'https://images.pexels.com/photos/4170629/pexels-photo-4170629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//         date: '20 Points',
+//         datetime: '2020-03-16',
+//         category: { title: 'Bi-Weekly', href: '#' }
+//     },
+//     {
+//         id: 1,
+//         title: 'Sunday Funday.',
+//         href: '#',
+//         description:
+//             'Every Sunday, you can choose to help Colton to do laundry or help Anna do grocery shopping. Whichever you choose will earn you 10 points.',
+//         imageUrl:
+//             'https://images.pexels.com/photos/13092853/pexels-photo-13092853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//         date: '10 Points',
+//         datetime: '2020-03-16',
+//         category: { title: 'Weekly', href: '#' }
+//     },
+// ]
 
 const Tasks: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
 
+    const sendEmail = ({ message, postData }) => {
 
-    const form = useRef<HTMLFormElement>(null);
-
-    const [buttonCooldown, setButtonCoolDown] = useState(false)
-
-    const sendEmail = (message) => {
-        alert(message);
+        completeTask(postData)
 
         var templateParams = {
             message: message,
         };
- 
+
         emailjs.send('service_0c0ssyl', 'template_bua0q2n', templateParams, 'wbAzpgcSEVRID5A6w')
             .then((result) => {
                 console.log(result.text);
@@ -107,6 +109,58 @@ const Tasks: NextPageWithLayout = () => {
                 console.log(error.text);
             });
     };
+
+    const [loading, setLoading] = useState(true)
+    const [posts, setPosts] = useState([])
+
+    const user = useUser()
+
+    async function getTaskData() {
+        try {
+            setLoading(true)
+            if (!user) throw new Error('No user')
+
+            let { data, error, status } = await supabase
+                .from('tasks')
+                .select('*')
+            if (error && status !== 406) {
+                throw error
+            }
+            if (data) {
+                setPosts(data);
+            }
+        } catch (error) {
+            alert('Error loading user data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function completeTask(postData) {
+        try {
+            setLoading(true)
+            if (!user) throw new Error('No user')
+
+            const updates = {
+                id: postData.id,
+                datetime: new Date().toISOString()
+            }
+
+            let { error } = await supabase.from('tasks').upsert(updates)
+            if (error) throw error
+            getTaskData();
+        } catch (error) {
+            alert('Error updating the data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        getTaskData()
+    }, [session])
 
     return (
         <>
@@ -124,44 +178,65 @@ const Tasks: NextPageWithLayout = () => {
                             Complete the below tasks to earn points.
                         </p>
                     </div>
-                        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                            {posts.map((post, i) => {
-                                const message = (post.title + " Worth " + post.date)
-                                return (<article key={i} className="flex flex-col items-start justify-between">
-                                    <div className="relative w-full">
-                                        <img
-                                            src={post.imageUrl}
-                                            alt=""
-                                            className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                                        />
-                                        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                        {posts.map((post, i) => {
+                            const message = (post.title + " Worth " + post.points)
+                            const postData = post;
+
+                            var locked = true;
+
+                            var completedDate = new Date(post.datetime).getTime() / 1000;
+                            var currentDate = new Date().getTime() / 1000;
+
+                            var diff = currentDate - completedDate;
+
+                            if (post.category === 'Daily' && diff > 43200) {
+                                locked = false;
+                            }
+                            else if (post.category === 'Bi-Weekly' && diff > 1.21e+6) {
+                                locked = false;
+                            }
+                            else if (post.category === 'Weekly' && diff > 604800) {
+                                locked = false;
+                            }
+
+                            return (<article key={i} className="flex flex-col items-start justify-between">
+                                <div className="relative w-full">
+                                    <img
+                                        src={post.imageUrl}
+                                        alt=""
+                                        className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                    />
+                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                                </div>
+                                <div className="max-w-xl">
+                                    <div className="mt-8 flex items-center gap-x-4 text-xs">
+                                        <time dateTime={post.points} className="text-gray-500">
+                                            {post.points}
+                                        </time>
+                                        <a
+                                            href={post.category}
+                                            className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+                                        >
+                                            {post.category}
+                                        </a>
                                     </div>
-                                    <div className="max-w-xl">
-                                        <div className="mt-8 flex items-center gap-x-4 text-xs">
-                                            <time dateTime={post.datetime} className="text-gray-500">
-                                                {post.date}
-                                            </time>
-                                            <a
-                                                href={post.category.href}
-                                                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                                            >
-                                                {post.category.title}
+                                    <div className="group relative">
+                                        <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                            <a href={post.href}>
+                                                <span className="absolute inset-0" />
+                                                {post.title}
                                             </a>
-                                        </div>
-                                        <div className="group relative">
-                                            <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                                <a href={post.href}>
-                                                    <span className="absolute inset-0" />
-                                                    {post.title}
-                                                </a>
-                                            </h3>
-                                            <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
-                                        </div>
+                                        </h3>
+                                        <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
                                     </div>
-                                    <button onClick={() => sendEmail(message)} className="mt-3 hover:cursor-pointer rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
-                                </article>)
-                            })}
-                        </div>
+                                </div>
+                                <div className='flex flex-row items-end gap-4'>
+                                    <button disabled={locked} onClick={() => sendEmail({ message, postData })} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
+                                </div>
+                            </article>)
+                        })}
+                    </div>
                 </div>
             </div>
         </>

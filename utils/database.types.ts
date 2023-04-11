@@ -52,6 +52,35 @@ export interface Database {
           email?: any | null
         }
       }
+        tasks: {
+          Row: {
+            id: string
+            title: string | null
+            description: any | null
+            imageUrl: any | null
+            points: any | null
+            datetime: any | null
+            category: any | null
+          }
+          Insert: {
+            id: string
+            title?: string | null
+            description?: any | null
+            imageUrl?: any | null
+            points?: any | null
+            datetime?: any | null
+            category?: any | null
+          }
+          Update: {
+            id: string
+            title?: string | null
+            description?: any | null
+            imageUrl?: any | null
+            points?: any | null
+            datetime?: any | null
+            category?: any | null
+          }
+      }
     }
     Views: {
       [_ in never]: never
