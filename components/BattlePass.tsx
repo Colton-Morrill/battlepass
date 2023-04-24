@@ -150,6 +150,7 @@ export default function BattlePass({ session }: { session: Session }) {
     { name: 'Movie Night', src: "/movie.webp", rarity: 'uncommon', cost: '50' },
     { name: '1000 V-Bucks', src: "/vbucks.webp", rarity: 'rare', cost: '100' },
     { name: '1000 Apex Coins', src: "/apex.jpg", rarity: 'epic', cost: '200' },
+    { name: 'Switch Online', src: "/switch.webp", rarity: 'legendary', cost: '400' },
     { name: '$NOT Concert Tickets', src: "/snot.webp", rarity: 'legendary', cost: '500' },
   ]
 
@@ -166,7 +167,7 @@ export default function BattlePass({ session }: { session: Session }) {
           <h2 className='pass-text text-2xl leading-[0.5rem]'>{points}</h2>
         </div>
       </div>
-      <div className='w-full hidden lg:grid  grid-cols-5 gap-1 relative border-b-4 border-orange-500'>
+      <div className='w-full hidden lg:grid  grid-cols-6 gap-1 relative border-b-4 border-orange-500'>
         {bpItems.map((item, i) => (
           <div key={i} className='w-full h-full flex justify-center items-center bg-black/25'>
             <div className='w-10 h-10 flex items-center justify-center pass-text'>
@@ -175,12 +176,12 @@ export default function BattlePass({ session }: { session: Session }) {
           </div>
         ))}
       </div>
-      <div className='w-full hidden lg:grid  grid-cols-5 gap-1'>
+      <div className='w-full hidden lg:grid  grid-cols-6 gap-1'>
         {bpItems.map((item, i) => (
           <h3 key={i} className='text-center pass-text text-2xl bg-black/25 pt-3'>{item.name}</h3>
         ))}
       </div>
-      <div className='w-full hidden lg:grid  grid-cols-5 gap-1'>
+      <div className='w-full hidden lg:grid  grid-cols-6 gap-1'>
        { slicedArray.map((item, i) => {
           var triangle = null;
            if (item.rarity === "legendary") {
@@ -201,12 +202,12 @@ export default function BattlePass({ session }: { session: Session }) {
         return (<div key={i} className="w-full relative"><div className={'inner-triangle ' + triangle}><Check className='-ml-[55px] mt-1' size={30} /></div></div>
         )})}
       </div>
-      <div className='hidden lg:grid w-full grid-cols-5 gap-1 mb-10'>
+      <div className='hidden lg:grid w-full grid-cols-6 gap-1 mb-10'>
        { bpItems.map((item, i) => {
         return (<PassItem key={i} props={item} progress={barWidth}></PassItem>
         )})}
       </div>
-      <div className='flex flex-col lg:hidden w-full grid-cols-5 gap-1 mb-10'>
+      <div className='flex flex-col lg:hidden w-full grid-cols-6 gap-1 mb-10'>
        { bpItems.map((item, i) => {
         return (
         <PassItem key={i} props={item} progress={barWidth}></PassItem>
