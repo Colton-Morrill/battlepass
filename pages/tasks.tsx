@@ -185,6 +185,9 @@ const Tasks: NextPageWithLayout = () => {
 
                             var locked = true;
 
+                            var date = new Date(post.datetime);
+                            var formattedDate = date.toLocaleString();
+
                             var completedDate = new Date(post.datetime).getTime() / 1000;
                             var currentDate = new Date().getTime() / 1000;
 
@@ -231,8 +234,9 @@ const Tasks: NextPageWithLayout = () => {
                                         <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
                                     </div>
                                 </div>
-                                <div className='flex flex-row items-end gap-4'>
+                                <div className='flex flex-col justify-start gap-2'>
                                     <button disabled={locked} onClick={() => sendEmail({ message, postData })} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
+                                    <p className='text-gray-500 w-full text-xs'>{"Last Completed " + formattedDate}</p>
                                 </div>
                             </article>)
                         })}
