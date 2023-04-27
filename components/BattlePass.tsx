@@ -148,7 +148,7 @@ export default function BattlePass({ session }: { session: Session }) {
   const bpItems = [
     { name: 'You Pick Dinner', src: "/food.webp", rarity: 'common', cost: '20' },
     { name: 'Movie Night', src: "/movie.webp", rarity: 'uncommon', cost: '50' },
-    { name: '1000 V-Bucks', src: "/vbucks.webp", rarity: 'rare', cost: '100' },
+    { name: '800 Robux', src: "/free-robux-770x433.webp", rarity: 'rare', cost: '200' },
     { name: '1000 Apex Coins', src: "/apex.jpg", rarity: 'epic', cost: '200' },
     { name: 'Switch Online', src: "/switch.webp", rarity: 'legendary', cost: '400' },
     { name: '$NOT Concert Tickets', src: "/snot.webp", rarity: 'legendary', cost: '500' },
