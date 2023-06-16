@@ -93,7 +93,7 @@ const Tasks: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
 
-    const sendEmail = ({ message, postData }) => {
+    const sendEmail = ({ message, postData, userId }) => {
 
         completeTask(postData)
 
@@ -102,6 +102,29 @@ const Tasks: NextPageWithLayout = () => {
         };
 
         emailjs.send('service_0c0ssyl', 'template_bua0q2n', templateParams, 'wbAzpgcSEVRID5A6w')
+            .then((result) => {
+                console.log(result.text);
+                alert('Task Completed!')
+            }, (error) => {
+                console.log(error.text);
+            });
+    };
+
+    const testEmail = ({ message, postData, userId }) => {
+
+        const points = postData.points;
+        const id = postData.id;
+
+        completeTask(postData)
+
+        var templateParams = {
+            message: message,
+            userId: userId,
+            points: points,
+            postId: id,
+        };
+
+        emailjs.send('service_0c0ssyl', 'template_edj1jck', templateParams, 'wbAzpgcSEVRID5A6w')
             .then((result) => {
                 console.log(result.text);
                 alert('Task Completed!')
@@ -182,6 +205,7 @@ const Tasks: NextPageWithLayout = () => {
                         {posts.map((post, i) => {
                             const message = (post.title + " Worth " + post.points)
                             const postData = post;
+                            const userId = user.id;
 
                             var locked = true;
 
@@ -215,7 +239,7 @@ const Tasks: NextPageWithLayout = () => {
                                 <div className="max-w-xl">
                                     <div className="mt-8 flex items-center gap-x-4 text-xs">
                                         <time dateTime={post.points} className="text-gray-500">
-                                            {post.points}
+                                            {post.points} Points
                                         </time>
                                         <a
                                             href={post.category}
@@ -235,7 +259,7 @@ const Tasks: NextPageWithLayout = () => {
                                     </div>
                                 </div>
                                 <div className='flex flex-col justify-start gap-2'>
-                                    <button disabled={locked} onClick={() => sendEmail({ message, postData })} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
+                                    <button disabled={locked} onClick={() => testEmail({ message, postData, userId })} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
                                     <p className='text-gray-500 w-full text-xs'>{"Last Completed " + formattedDate}</p>
                                 </div>
                             </article>)
