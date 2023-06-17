@@ -92,42 +92,22 @@ type Tasks = Database['public']['Tables']['tasks']['Row']
 const Tasks: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
-
-    const sendEmail = ({ message, postData, userId }) => {
-
-        completeTask(postData)
-
-        var templateParams = {
-            message: message,
-        };
-
-        emailjs.send('service_0c0ssyl', 'template_bua0q2n', templateParams, 'wbAzpgcSEVRID5A6w')
-            .then((result) => {
-                console.log(result.text);
-                alert('Task Completed!')
-            }, (error) => {
-                console.log(error.text);
-            });
-    };
+    const user = useUser()
+    const userId = user.id;
 
     const testEmail = ({ message, postData, userId }) => {
 
-        const points = postData.points;
-        const id = postData.id;
-
-        completeTask(postData)
-
+        completeTask(postData);
+        getCurrentApprovals(postData);
+        
         var templateParams = {
             message: message,
-            userId: userId,
-            points: points,
-            postId: id,
+            email: user.email,
         };
 
         emailjs.send('service_0c0ssyl', 'template_edj1jck', templateParams, 'wbAzpgcSEVRID5A6w')
             .then((result) => {
                 console.log(result.text);
-                alert('Task Completed!')
             }, (error) => {
                 console.log(error.text);
             });
@@ -135,8 +115,6 @@ const Tasks: NextPageWithLayout = () => {
 
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([])
-
-    const user = useUser()
 
     async function getTaskData() {
         try {
@@ -146,6 +124,7 @@ const Tasks: NextPageWithLayout = () => {
             let { data, error, status } = await supabase
                 .from('tasks')
                 .select('*')
+                .eq('assignee', userId)
             if (error && status !== 406) {
                 throw error
             }
@@ -171,6 +150,56 @@ const Tasks: NextPageWithLayout = () => {
             }
 
             let { error } = await supabase.from('tasks').upsert(updates)
+            if (error) throw error
+            getTaskData();
+        } catch (error) {
+            alert('Error updating the data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function getCurrentApprovals(postData) {
+        try {
+            setLoading(true)
+            if (!user) throw new Error('No user')
+
+            let { data, error, status } = await supabase
+                .from('desc_id')
+                .select("*")
+            if (error && status !== 406) {
+                throw error
+            }
+            if (data) {
+                addApproval(postData, data)
+            }
+        } catch (error) {
+            alert('Error loading user data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function addApproval(postData, data) {
+        var length = data.length
+        var id = null;
+        if(length > 0) {
+            id = data[0].id;
+            id += 1
+        }
+        else {
+            id = 1
+        }
+        try {
+            setLoading(true)
+            if (!user) throw new Error('No user')
+
+            const { error } = await supabase
+                .from('pending_approvals')
+                .insert({ id: id, created_at: new Date().toISOString(), requested_by: user.id, email: user.email, task_name: postData.title, points: postData.points, approved: 'false', task_id: postData.id })
+
             if (error) throw error
             getTaskData();
         } catch (error) {
