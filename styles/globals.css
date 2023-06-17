@@ -138,9 +138,9 @@ input.error:-webkit-autofill{
 }
 
 .background {
-  background-image: url('https://i.redd.it/klx08iqeanm21.png');
-  background-size: cover;
-
+  background: linear-gradient(45deg, rgba(20, 29, 38, 0.85) 30.59%, rgba(41, 6, 136, 0.85) 100.00%), url("/abstract-background-01.svg"); 
+  background-size: cover ; 
+  background-repeat: no-repeat; 
 }
 
 .inner-triangle{
