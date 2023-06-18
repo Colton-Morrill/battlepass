@@ -129,10 +129,6 @@ input.error:-webkit-autofill{
   -webkit-text-fill-color: red !important;
 }
 
-.pass-text {
-  font-family: 'Fortnite', 'Serif';
-}
-
 .content-container {
   height: calc(100vh - 144px);
 }
