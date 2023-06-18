@@ -109,7 +109,7 @@ export default function Layout({ children }: any) {
                               item.current
                                 ? 'border-indigo-500 text-gray-900'
                                 : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text',
-                              'inline-flex items-center text-lg border-b-2 px-1 pt-1 font-medium text-sm'
+                              'inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
                             )}
                             aria-current={item.current ? 'page' : undefined}
                           >
@@ -122,7 +122,7 @@ export default function Layout({ children }: any) {
                           <a
                             href="/approvals"
                             className='border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text
-                                      inline-flex items-center text-lg border-b-2 px-1 pt-1 font-medium text-sm'
+                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
                           >
                             Approvals
                           </a>
@@ -134,7 +134,7 @@ export default function Layout({ children }: any) {
                         <button
                           onClick={() => supabase.auth.signOut()}
                           className={classNames(
-                            'border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium text-sm'
+                            'border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
                           )}
                         >
                           Sign Out
