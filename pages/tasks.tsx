@@ -198,7 +198,7 @@ const Tasks: NextPageWithLayout = () => {
 
             const { error } = await supabase
                 .from('pending_approvals')
-                .insert({ id: id, created_at: new Date().toISOString(), requested_by: user.id, email: user.email, task_name: postData.title, points: postData.points, approved: 'false', task_id: postData.id })
+                .insert({ id: id, created_at: new Date().toISOString(), requested_by: user.id, email: user.email, name: postData.title, points: postData.points, approved: 'false', task_id: postData.id, type: 'Task' })
 
             if (error) throw error
             getTaskData();

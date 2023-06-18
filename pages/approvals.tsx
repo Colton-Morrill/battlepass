@@ -69,8 +69,9 @@ const Approvals: NextPageWithLayout = () => {
       if (data) {
         const old_points = data.points;
         const id = data.id;
-        const email = data.email
-        updatePoints({ userId, points, id, email, old_points })
+        const email = data.email;
+        const type = approval.type;
+        updatePoints({ userId, points, id, email, old_points, type })
         switchStatus(approval);
       }
     } catch (error) {
@@ -90,7 +91,7 @@ const Approvals: NextPageWithLayout = () => {
         id: approval.id,
         created_at: approval.created_at,
         email: approval.email,
-        task_name: approval.task_name,
+        name: approval.task_name,
         points: approval.points,
         approved: 'true',
       }
@@ -116,7 +117,9 @@ const Approvals: NextPageWithLayout = () => {
         .delete()
         .eq('id', approval.id)
       if (error) throw error
-      resetTask({ userId, approval })
+      if(approval.type === "Task"){
+        resetTask({ userId, approval })
+      }
       getCurrentApprovals()
     } catch (error) {
       alert('Error updating the data!')
@@ -127,15 +130,24 @@ const Approvals: NextPageWithLayout = () => {
   }
 
 
-  async function updatePoints({ userId, points, id, email, old_points }) {
+  async function updatePoints({ userId, points, id, email, old_points, type }) {
     try {
       setLoading(true)
       if (!userId) throw new Error('No user')
-      var oldPointsNumb = Number(old_points)
-      var pointsNumb = Number(points)
-      var totalNumb = oldPointsNumb + pointsNumb
-      var total = totalNumb.toString()
-      points = total;
+      if (type === "Task") {
+        var oldPointsNumb = Number(old_points)
+        var pointsNumb = Number(points)
+        var totalNumb = oldPointsNumb + pointsNumb
+        var total = totalNumb.toString()
+        points = total;
+      }
+      else {
+        var oldPointsNumb = Number(old_points)
+        var pointsNumb = Number(points)
+        var totalNumb = oldPointsNumb - pointsNumb
+        var total = totalNumb.toString()
+        points = total;
+      }
 
       const updates = {
         id: id,
@@ -230,13 +242,16 @@ const Approvals: NextPageWithLayout = () => {
                                 Name
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                Task
+                                Title
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Date Completed
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Points
+                              </th>
+                              <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Type
                               </th>
                               <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span className="sr-only">Edit</span>
@@ -255,6 +270,7 @@ const Approvals: NextPageWithLayout = () => {
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                               </tr>
                               :
                               unapprovedArray.map((approval, i) => {
@@ -262,13 +278,15 @@ const Approvals: NextPageWithLayout = () => {
                                 var formattedDate = date.toLocaleString();
                                 var userId = approval.requested_by;
                                 var points = approval.points;
+                                var type = approval.type;
                                 return (<tr key={i}>
                                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                     {approval.email}
                                   </td>
-                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.task_name}</td>
+                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.name}</td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formattedDate}</td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.points}</td>
+                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.type}</td>
                                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                     <button onClick={() => setPoints(userId, points, approval)} className="text-indigo-600 hover:text-indigo-900">
                                       Approve<span className="sr-only">, {approval.name}</span>
@@ -306,13 +324,16 @@ const Approvals: NextPageWithLayout = () => {
                                 Name
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                Task
+                                Title
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Date Completed
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Points
+                              </th>
+                              <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Type
                               </th>
                               <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span className="sr-only">Edit</span>
@@ -329,6 +350,7 @@ const Approvals: NextPageWithLayout = () => {
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                               </tr>
                               :
                               approvedArray.map((approval, i) => {
@@ -340,9 +362,10 @@ const Approvals: NextPageWithLayout = () => {
                                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                     {approval.email}
                                   </td>
-                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.task_name}</td>
+                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.name}</td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formattedDate}</td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.points}</td>
+                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{approval.type}</td>
                                 </tr>)
                               })
                             }

@@ -15,7 +15,7 @@ type Profiles = Database['public']['Tables']['profiles']['Row']
 type Points = Database['public']['Tables']['points']['Row']
 
 const navigation = [
-  { name: 'Battle Pass', href: '/hub', current: false },
+  { name: 'Rewards', href: '/hub', current: false },
   { name: 'Account', href: '/account', current: false },
   { name: 'Tasks', href: '/tasks', current: false },
 ]
@@ -36,7 +36,7 @@ export default function Layout({ children }: any) {
     var root = document.getElementsByTagName('html')[0];
     root.setAttribute('class', theme);
     if (user != null) {
-      getUserData();
+      // getUserData();
     }
   }, [session]);
 
@@ -117,7 +117,7 @@ export default function Layout({ children }: any) {
                           </a>
                         ))}
                       </div>
-                      {userType === 'admin' &&
+                      {userType != 'admin' &&
                         <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                           <a
                             href="/approvals"

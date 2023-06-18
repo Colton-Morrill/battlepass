@@ -182,7 +182,8 @@ export default function Account({ session }: { session: Session }) {
 
       {userType === "admin" &&
         <>
-          <h2 className='text-xl font-bold mb-3'>Add Talon&apos;s Points</h2>
+          <h2 className='text-xl font-bold mb-3'>Manual Override</h2>
+          <h3 className='font-bold mb-6'>Adjust Talon&apos;s Points</h3>
           <div className='flex flex-col'>
             <label htmlFor="username">{"Talon's Points " + "(" + previousPoints + ")"}</label>
             <input
