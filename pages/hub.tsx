@@ -19,6 +19,9 @@ const Hub: NextPageWithLayout = () => {
     const [rewards, setRewards] = useState([])
     const [usersPoints, setUsersPoints] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
+    const [modalData, setModalData] = useState([
+        { title: '', description: '' },
+    ]);
 
     useEffect(() => {
         getCurrentRewards();
@@ -71,11 +74,19 @@ const Hub: NextPageWithLayout = () => {
     }
 
     const checkForPoints = (rewardData) => {
-        
+
         if (usersPoints < rewardData.cost) {
-            alert('Not Enough Points');
+            const data = [
+                { title: 'Not Enough Points!', description: 'You do not have enough points to claim this reward.' },
+            ]
+            setModalData(data);
+            toggleModal();
         }
         else {
+            const data = [
+                { title: 'Reward Claimed!', description: 'Please wait for your reward to be approved.' },
+            ]
+            setModalData(data);
             getCurrentApprovals(rewardData);
         }
     };
@@ -137,7 +148,7 @@ const Hub: NextPageWithLayout = () => {
     }
 
     const sendNotification = (rewardData) => {
-        
+
         var templateParams = {
             message: rewardData.reward_name,
             email: user.email,
@@ -163,7 +174,7 @@ const Hub: NextPageWithLayout = () => {
                 {session &&
                     <>
                         <div className={modalVisible ? 'absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
-                            <Popup title={"Reward Claimed!"} description={"Please wait for your reward to be approved."} action={() => toggleModal()}/>
+                            <Popup title={modalData[0].title} description={modalData[0].description} action={() => toggleModal()} />
                         </div>
                         <div className="bg-white p-16 rounded-2xl">
                             <div className="sm:flex sm:items-center">
