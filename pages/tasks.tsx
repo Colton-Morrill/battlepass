@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { useUser, Session } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
 import { setAdmin, setMember } from '@/slices/userTypeSlice'
+import Popup from '@/components/Popup'
 type Tasks = Database['public']['Tables']['tasks']['Row']
 
 
@@ -95,11 +96,15 @@ const Tasks: NextPageWithLayout = () => {
     const user = useUser()
     const userId = user.id;
 
+
+    const [modalVisible, setModalVisible] = useState(false)
+
     const testEmail = ({ message, postData, userId }) => {
 
         completeTask(postData);
         getCurrentApprovals(postData);
-        
+        toggleModal();
+
         var templateParams = {
             message: message,
             email: user.email,
@@ -185,7 +190,7 @@ const Tasks: NextPageWithLayout = () => {
     async function addApproval(postData, data) {
         var length = data.length
         var id = null;
-        if(length > 0) {
+        if (length > 0) {
             id = data[0].id;
             id += 1
         }
@@ -214,6 +219,11 @@ const Tasks: NextPageWithLayout = () => {
         getTaskData()
     }, [session])
 
+    const toggleModal = () => {
+        setModalVisible(modalVisible => !modalVisible);
+        console.log(modalVisible);
+    }
+
     return (
         <>
             <Head>
@@ -222,6 +232,9 @@ const Tasks: NextPageWithLayout = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="https://www.coltonmorrill.com/vaporwave-01.svg" />
             </Head>
+            <div className={modalVisible ? 'absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
+                <Popup title={"Task Completed!"} description={"Please wait for your task to be approved."} action={() => toggleModal()} />
+            </div>
             <div className="bg-white py-24 sm:pt-16 sm:py-32 rounded-2xl">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl text-center">
