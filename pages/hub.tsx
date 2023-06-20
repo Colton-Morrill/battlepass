@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Popup from '@/components/Popup'
+import emailjs from '@emailjs/browser';
 
 const Hub: NextPageWithLayout = () => {
     const session = useSession()
@@ -111,6 +112,7 @@ const Hub: NextPageWithLayout = () => {
                 .insert({ id: id, created_at: new Date().toISOString(), requested_by: user.id, email: user.email, name: rewardData.reward_name, points: rewardData.cost, approved: 'false', task_id: rewardData.id, type: 'Reward' })
 
             if (error) throw error
+            sendNotification(rewardData);
         } catch (error) {
             alert('Error updating the data!')
             console.log(error)
@@ -123,6 +125,21 @@ const Hub: NextPageWithLayout = () => {
         setModalVisible(modalVisible => !modalVisible);
         console.log(modalVisible);
     }
+
+    const sendNotification = (rewardData) => {
+        
+        var templateParams = {
+            message: rewardData.reward_name,
+            email: user.email,
+        };
+
+        emailjs.send('service_0c0ssyl', 'template_bua0q2n', templateParams, 'wbAzpgcSEVRID5A6w')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+    };
 
     return (
         <>
