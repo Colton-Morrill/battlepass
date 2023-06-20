@@ -20,6 +20,7 @@ const Approvals: NextPageWithLayout = () => {
 
   const [loading, setLoading] = useState(true)
   const [approvals, setApprovals] = useState([])
+  const [approvalHistory, setApprovalHistory] = useState([])
 
   const filtered = (approved) => approvals.filter(i => i.approved.includes(approved));
   const approvedArray = filtered('true');
@@ -42,6 +43,29 @@ const Approvals: NextPageWithLayout = () => {
       }
       if (data) {
         setApprovals(data);
+        getApprovalHistory();
+      }
+    } catch (error) {
+      alert('Error loading user data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function getApprovalHistory() {
+    try {
+      setLoading(true)
+      if (!user) throw new Error('No user')
+
+      let { data, error, status } = await supabase
+        .from('approval_history_by_date')
+        .select("*")
+      if (error && status !== 406) {
+        throw error
+      }
+      if (data) {
+        setApprovalHistory(data);
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -344,7 +368,7 @@ const Approvals: NextPageWithLayout = () => {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200">
-                            {approvedArray.length < 1 ?
+                            {approvalHistory.length < 1 ?
                               <tr>
                                 <td className='text-gray-400 py-6'>No History Available.</td>
                                 <td></td>
@@ -353,7 +377,7 @@ const Approvals: NextPageWithLayout = () => {
                                 <td></td>
                               </tr>
                               :
-                              approvedArray.map((approval, i) => {
+                              approvalHistory.map((approval, i) => {
                                 var date = new Date(approval.created_at);
                                 var formattedDate = date.toLocaleString();
                                 var userId = approval.requested_by;
