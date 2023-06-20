@@ -70,6 +70,16 @@ const Hub: NextPageWithLayout = () => {
         }
     }
 
+    const checkForPoints = (rewardData) => {
+        
+        if (usersPoints < rewardData.cost) {
+            alert('Not Enough Points');
+        }
+        else {
+            getCurrentApprovals(rewardData);
+        }
+    };
+
     async function getCurrentApprovals(rewardData) {
         try {
             setLoading(true)
@@ -202,7 +212,7 @@ const Hub: NextPageWithLayout = () => {
 
                                         </div>
                                         <div className='flex flex-col justify-start gap-2'>
-                                            <button onClick={() => getCurrentApprovals(rewardData)} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Claim Reward</button>
+                                            <button onClick={() => checkForPoints(rewardData)} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Claim Reward</button>
                                         </div>
                                     </article>)
                                 })}
