@@ -170,7 +170,7 @@ const Hub: NextPageWithLayout = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="https://www.coltonmorrill.com/vaporwave-01.svg" />
             </Head>
-            <div className="container relative">
+            <div className="container relative min-h-screen">
                 {session &&
                     <>
                         <div className={modalVisible ? 'absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
