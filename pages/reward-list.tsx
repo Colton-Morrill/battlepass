@@ -120,7 +120,7 @@ const RewardList: NextPageWithLayout = () => {
                         <div className="bg-white p-16 rounded-2xl">
                             <div className="sm:flex sm:items-center">
                                 <div className="sm:flex-auto">
-                                    <h1 className="text-xl font-bold leading-6 text-gray-900">Task List</h1>
+                                    <h1 className="text-xl font-bold leading-6 text-gray-900">Reward List</h1>
                                     <p className="mt-2 text-sm text-gray-700">
                                         Choose an action for the rewards below.
                                     </p>
@@ -140,7 +140,7 @@ const RewardList: NextPageWithLayout = () => {
                                         <table className="min-w-full divide-y divide-gray-300 mb-12">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                    <th scope="col" className="pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                         Name
                                                     </th>
                                                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -160,7 +160,7 @@ const RewardList: NextPageWithLayout = () => {
                                             <tbody className="divide-y divide-gray-200">
                                                 {tasks.length < 1 ?
                                                     <tr>
-                                                        <td className='text-gray-400 py-6'>No Pending Approvals.</td>
+                                                        <td className='text-gray-400 py-6'>No Reward Data.</td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>

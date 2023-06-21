@@ -227,6 +227,15 @@ export default function Layout({ children }: any) {
                               Reward List
                             </a>
                           </div>
+                          <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                            <a
+                              href="/points-list"
+                              className='border-transparent text-gray-300 hover:border-gray-300 hover:text-gray-700 pass-text
+                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
+                            >
+                              Points List
+                            </a>
+                          </div>
                         </>
 
                       </div>
