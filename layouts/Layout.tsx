@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Database } from '../utils/database.types'
-
+import { ShieldCheck } from 'lucide-react'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -32,12 +32,11 @@ export default function Layout({ children }: any) {
   const [loading, setLoading] = useState(true)
   const [userType, setUserType] = useState("")
   const user = useUser();
-  console.log(user);
   useEffect(() => {
     var root = document.getElementsByTagName('html')[0];
     root.setAttribute('class', theme);
     if (user != null) {
-      // getUserData();
+      getUserData();
     }
   }, [session]);
 
@@ -83,7 +82,7 @@ export default function Layout({ children }: any) {
         </>
       ) : (
         <div className="min-h-full">
-          <Disclosure as="nav" className="bg-gray-900 shadow-sm">
+          <Disclosure as="nav" className="bg-slate-900 shadow-sm">
             {({ open }) => (
               <>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -118,29 +117,6 @@ export default function Layout({ children }: any) {
                           </a>
                         ))}
                       </div>
-                      {user.email === 'cjmorrill@gmail.com' &&
-                        <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                          <a
-                            href="/approvals"
-                            className='border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text
-                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
-                          >
-                            Approvals
-                          </a>
-                        </div>
-                      }
-                      {user.email === 'cjmorrill@gmail.com' &&
-                        <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                          <a
-                            href="/task-list"
-                            className='border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text
-                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
-                          >
-                            Task List
-                          </a>
-                        </div>
-                      }
-
                       <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
 
                         <button
@@ -154,7 +130,6 @@ export default function Layout({ children }: any) {
 
                       </div>
                     </div>
-
                     <div className="-mr-2 flex items-center sm:hidden">
                       {/* Mobile menu button */}
                       <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -188,15 +163,15 @@ export default function Layout({ children }: any) {
                     ))}
                   </div>
                   {user.email === 'cjmorrill@gmail.com' &&
-                        <div className="sm:-my-px sm:ml-6 sm:flex">
-                          <a
-                            href="/approvals"
-                            className='ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium'
-                          >
-                            Approvals
-                          </a>
-                        </div>
-                      }
+                    <div className="sm:-my-px sm:ml-6 sm:flex">
+                      <a
+                        href="/approvals"
+                        className='ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium'
+                      >
+                        Approvals
+                      </a>
+                    </div>
+                  }
                   <button
                     onClick={() => supabase.auth.signOut()}
                     className={classNames(
@@ -209,6 +184,58 @@ export default function Layout({ children }: any) {
               </>
             )}
           </Disclosure>
+          {userType === 'admin' &&
+            <Disclosure as="nav" className="bg-slate-800 shadow-sm mb-6">
+              {({ open }) => (
+                <>
+                  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="flex h-10 justify-between">
+                      <div className="flex">
+                        <div className='flex justify-center items-center'>
+                        <p
+                              className='border-transparent text-gray-300 pass-text
+                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-lg'
+                            >
+                              <ShieldCheck />
+                            </p>
+                        </div>
+                        <>
+                          <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                            <a
+                              href="/approvals"
+                              className='border-transparent text-gray-300 hover:border-gray-300 hover:text-gray-700 pass-text
+                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
+                            >
+                              Approvals
+                            </a>
+                          </div>
+                          <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                            <a
+                              href="/task-list"
+                              className='border-transparent text-gray-300 hover:border-gray-300 hover:text-gray-700 pass-text
+                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
+                            >
+                              Task List
+                            </a>
+                          </div>
+                          <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                            <a
+                              href="/reward-list"
+                              className='border-transparent text-gray-300 hover:border-gray-300 hover:text-gray-700 pass-text
+                                      inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
+                            >
+                              Reward List
+                            </a>
+                          </div>
+                        </>
+
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </Disclosure>
+          }
           <div className="py-10">
             <header>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
