@@ -32,6 +32,7 @@ export default function Layout({ children }: any) {
   const [loading, setLoading] = useState(true)
   const [userType, setUserType] = useState("")
   const user = useUser();
+  console.log(user);
   useEffect(() => {
     var root = document.getElementsByTagName('html')[0];
     root.setAttribute('class', theme);

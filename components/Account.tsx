@@ -15,9 +15,7 @@ export default function Account({ session }: { session: Session }) {
   const [previousPoints, setOldPoints] = useState<Points['points']>(null)
   const [userType, setUserType] = useState('member')
   const [username, setUsername] = useState<Profiles['username']>(null)
-  const [website, setWebsite] = useState<Profiles['website']>(null)
   const [points, setTalonsPoints] = useState<Points['points']>(null)
-  const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [email, setUserId] = useState('talonjacobmorrill@gmail.com')
   const blank = "0"
   const [inputReset, setInputReset] = useState('')
@@ -35,7 +33,7 @@ export default function Account({ session }: { session: Session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url, type`)
+        .select(`username, type`)
         .eq('id', user.id)
         .single()
 
@@ -53,7 +51,6 @@ export default function Account({ session }: { session: Session }) {
           dispatch(setMember())
         }
         setUsername(data.username)
-        setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -103,8 +100,6 @@ export default function Account({ session }: { session: Session }) {
       const updates = {
         id: user.id,
         username,
-        website,
-        avatar_url,
         updated_at: new Date().toISOString(),
       }
 

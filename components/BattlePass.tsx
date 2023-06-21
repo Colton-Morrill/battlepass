@@ -17,8 +17,6 @@ export default function BattlePass({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true)
   const [rowCount, setRowCount] = useState(0)
   const [username, setUsername] = useState<Profiles['username']>(null)
-  const [website, setWebsite] = useState<Profiles['website']>(null)
-  const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
 
   useEffect(() => {
     getProfile()
@@ -58,7 +56,7 @@ export default function BattlePass({ session }: { session: Session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url, type`)
+        .select(`username, type`)
         .eq('id', user.id)
         .single()
 
@@ -68,7 +66,6 @@ export default function BattlePass({ session }: { session: Session }) {
 
       if (data) {
         setUsername(data.username)
-        setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
       alert('Error loading user data!')
