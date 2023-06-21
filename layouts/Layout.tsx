@@ -154,7 +154,7 @@ export default function Layout({ children }: any) {
                           item.current
                             ? 'border-indigo-500 text-gray-900'
                             : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700 pass-text ml-3',
-                          'block text-lg border-b-2 px-1 pt-1 font-medium'
+                          'block text-base border-b-2 px-1 pt-1 font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
@@ -162,20 +162,53 @@ export default function Layout({ children }: any) {
                       </Disclosure.Button>
                     ))}
                   </div>
-                  {user.email === 'cjmorrill@gmail.com' &&
-                    <div className="sm:-my-px sm:ml-6 sm:flex">
-                      <a
-                        href="/approvals"
-                        className='ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium'
-                      >
-                        Approvals
-                      </a>
-                    </div>
+                  {userType === 'admin' &&
+                    <>
+                    <div className="sm:-my-px sm:ml-6 sm:flex mt-5">
+                        <p
+                          className='ml-3 mb-1 border-transparent text-indigo-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-bold'
+                        >
+                          Admin Menu
+                        </p>
+                      </div>
+                      <div className="sm:-my-px sm:ml-6 sm:flex">
+                        <a
+                          href="/approvals"
+                          className='ml-3 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-base font-medium'
+                        >
+                          Approvals
+                        </a>
+                      </div>
+                      <div className="sm:-my-px sm:ml-6 sm:flex">
+                        <a
+                          href="/task-list"
+                          className='ml-3 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-base font-medium'
+                        >
+                          Task List
+                        </a>
+                      </div>
+                      <div className="sm:-my-px sm:ml-6 sm:flex">
+                        <a
+                          href="/reward-list"
+                          className='ml-3 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-base font-medium'
+                        >
+                          Reward List
+                        </a>
+                      </div>
+                      <div className="sm:-my-px sm:ml-6 sm:flex">
+                        <a
+                          href="/points-list"
+                          className='ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-base font-medium'
+                        >
+                          Point List
+                        </a>
+                      </div>
+                    </>
                   }
                   <button
                     onClick={() => supabase.auth.signOut()}
                     className={classNames(
-                      'ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium'
+                      'ml-3 mb-5 border-transparent text-gray-400 pass-text hover:border-gray-300 hover:text-gray-700 ml-auto inline-flex items-center border-b-2 px-1 pt-1 text-base font-medium'
                     )}
                   >
                     Sign Out
@@ -185,19 +218,19 @@ export default function Layout({ children }: any) {
             )}
           </Disclosure>
           {userType === 'admin' &&
-            <Disclosure as="nav" className="bg-slate-800 shadow-sm mb-6">
+            <Disclosure as="nav" className="hidden sm:block bg-slate-800 shadow-sm mb-6">
               {({ open }) => (
                 <>
                   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-10 justify-between">
                       <div className="flex">
                         <div className='flex justify-center items-center'>
-                        <p
-                              className='border-transparent text-gray-300 pass-text
+                          <p
+                            className='border-transparent text-gray-300 pass-text
                                       inline-flex items-center border-b-2 px-1 pt-1 font-medium text-lg'
-                            >
-                              <ShieldCheck />
-                            </p>
+                          >
+                            <ShieldCheck />
+                          </p>
                         </div>
                         <>
                           <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
