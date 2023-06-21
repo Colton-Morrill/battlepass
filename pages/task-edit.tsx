@@ -10,7 +10,7 @@ import Popup from '@/components/Popup'
 import emailjs from '@emailjs/browser';
 import { useSearchParams } from 'next/navigation'
 
-const taskEdit: NextPageWithLayout = () => {
+const TaskEdit: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
     const user = useUser();
@@ -308,7 +308,7 @@ const taskEdit: NextPageWithLayout = () => {
     )
 }
 
-taskEdit.getLayout = function getLayout(page: ReactElement) {
+TaskEdit.getLayout = function getLayout(page: ReactElement) {
     return (
         <Layout>
             {page}
@@ -317,4 +317,4 @@ taskEdit.getLayout = function getLayout(page: ReactElement) {
 }
 
 
-export default taskEdit
+export default TaskEdit

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import Popup from '@/components/Popup'
 import emailjs from '@emailjs/browser';
 
-const taskList: NextPageWithLayout = () => {
+const TaskList: NextPageWithLayout = () => {
     const session = useSession()
     const supabase = useSupabaseClient()
     const user = useUser();
@@ -206,7 +206,7 @@ const taskList: NextPageWithLayout = () => {
     )
 }
 
-taskList.getLayout = function getLayout(page: ReactElement) {
+TaskList.getLayout = function getLayout(page: ReactElement) {
     return (
         <Layout>
             {page}
@@ -215,4 +215,4 @@ taskList.getLayout = function getLayout(page: ReactElement) {
 }
 
 
-export default taskList
+export default TaskList
