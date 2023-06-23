@@ -5,8 +5,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 
 const navigation = [
-    { name: 'Rewards', href: '#' },
-    { name: 'About', href: '#' },
+ 
 ]
 
 export default function Example() {
