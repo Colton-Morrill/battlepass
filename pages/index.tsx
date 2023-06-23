@@ -2,7 +2,9 @@ import Head from 'next/head'
 import MarketingHero from '@/components/MarketingHero'
 import Footer from '@/components/Footer'
 import HowItWorks from '@/components/HowItWorks'
-import Rewards from '@/components/Rewards'
+import ProductScreenshot from '@/components/ProductScreenshot'
+import Testimonial from '@/components/Testimonial'
+import Pricing from '@/components/Pricing'
 
 export default function Example() {
   return (
@@ -15,7 +17,9 @@ export default function Example() {
       </Head>
       <MarketingHero />
       <HowItWorks />
-      <Rewards />
+      <ProductScreenshot />
+      <Testimonial />
+      <Pricing />
       <Footer />
     </>
   )

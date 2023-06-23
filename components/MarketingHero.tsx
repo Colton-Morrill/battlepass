@@ -146,10 +146,13 @@ export default function Example() {
                             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                                 <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                                     <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                        Complete Tasks, Earn Rewards.
+                                        Effortless Task Management
                                     </h1>
                                     <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                        Complete multiple tasks while staying to earn rewards to spend while living with us!
+                                    Welcome to Battlepass, the platform that makes earning rewards a breeze.
+                                    </p>
+                                    <p className="relative text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                                    Sign up today and embark on a journey of discovery, productivity, and satisfaction.
                                     </p>
                                     <div className="mt-10 flex items-center gap-x-6">
                                         <button
@@ -162,54 +165,19 @@ export default function Example() {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-                                    <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                                        <div className="relative">
-                                            <img
-                                                src="apex.jpg"
-                                                alt=""
-                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                                            />
-                                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                                        </div>
-                                    </div>
-                                    <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                                        <div className="relative">
-                                            <img
-                                                src="vbucks.webp"
-                                                alt=""
-                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                                            />
-                                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                                        </div>
-                                        <div className="relative">
-                                            <img
-                                                src="snot.webp"
-                                                alt=""
-                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                                            />
-                                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                                        </div>
-                                    </div>
-                                    <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                                        <div className="relative">
-                                            <img
-                                                src="seats.webp"
-                                                alt=""
-                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                                            />
-                                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                                        </div>
-                                        <div className="relative">
-                                            <img
-                                                src="food.webp"
-                                                alt=""
-                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                                            />
-                                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                                        </div>
-                                    </div>
-                                </div>
+                                <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+          <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+              <img
+                src="/task_page.png"
+                alt="App screenshot"
+                width={2432}
+                height={1442}
+                className="w-[76rem] rounded-md shadow-2xl ring-1 ring-gray-900/10"
+              />
+            </div>
+          </div>
+        </div>
                             </div>
                         </div>
                     </div>
