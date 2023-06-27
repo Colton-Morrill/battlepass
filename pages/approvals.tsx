@@ -76,6 +76,7 @@ const Approvals: NextPageWithLayout = () => {
   }
 
   async function setPoints(userId, points, approval) {
+    console.log(userId);
     try {
       setLoading(true)
       if (!userId) throw new Error('No user')
@@ -91,6 +92,7 @@ const Approvals: NextPageWithLayout = () => {
       }
 
       if (data) {
+        console.log(data);
         const old_points = data.points;
         const id = data.id;
         const email = data.email;
@@ -180,7 +182,10 @@ const Approvals: NextPageWithLayout = () => {
         user_id: userId,
       }
 
-      let { error } = await supabase.from('points').upsert(updates)
+      const { error } = await supabase
+        .from('points')
+        .update({ points: points })
+        .eq('user_id', userId)
       if (error) throw error
     } catch (error) {
       alert('Error updating the data!')

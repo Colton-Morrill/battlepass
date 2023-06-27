@@ -68,7 +68,7 @@ export default function Account({ session }: { session: Session }) {
       let { data, error, status } = await supabase
         .from('points')
         .select(`points`)
-        .eq('id', '0')
+        .eq('user_id', '1565da68-f9f8-4feb-aff4-6c7c16d00d1f')
         .single()
 
       if (error && status !== 406) {
@@ -135,7 +135,11 @@ export default function Account({ session }: { session: Session }) {
         email,
       }
 
-      let { error } = await supabase.from('points').upsert(updates)
+     const { error } = await supabase
+        .from('points')
+        .update({ points: points })
+        .eq('user_id', '1565da68-f9f8-4feb-aff4-6c7c16d00d1f')
+        
       if (error) throw error
       getTalonsPoints()
       setTalonsPoints("")
