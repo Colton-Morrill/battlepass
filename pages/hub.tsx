@@ -173,7 +173,7 @@ const Hub: NextPageWithLayout = () => {
             <div className="container relative min-h-screen">
                 {session &&
                     <>
-                        <div className={modalVisible ? 'absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
+                        <div className={modalVisible ? 'fixed top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
                             <Popup title={modalData[0].title} description={modalData[0].description} action={() => toggleModal()} />
                         </div>
                         <div className="bg-white p-16 rounded-2xl">

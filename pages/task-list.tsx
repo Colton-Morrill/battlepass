@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import Popup from '@/components/Popup'
 import emailjs from '@emailjs/browser';
 import Link from 'next/link'
+import { UnlockIcon } from 'lucide-react'
 
 const TaskList: NextPageWithLayout = () => {
     const session = useSession()
@@ -97,6 +98,27 @@ const TaskList: NextPageWithLayout = () => {
         }
     }
 
+    async function unlockTask(task) {
+        try {
+          setLoading(true)
+          if (!user.id) throw new Error('No user')
+    
+          const updates = {
+            id: task.id,
+            datetime: new Date(1572840117245).toISOString()
+          }
+    
+          let { error } = await supabase.from('tasks').upsert(updates)
+          if (error) throw error
+          getTasks()
+        } catch (error) {
+          alert('Error updating the data!')
+          console.log(error)
+        } finally {
+          setLoading(false)
+        }
+      }
+
 
     const toggleModal = () => {
         setModalVisible(modalVisible => !modalVisible);
@@ -158,12 +180,16 @@ const TaskList: NextPageWithLayout = () => {
                                                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                                         <span className="sr-only">Deny</span>
                                                     </th>
+                                                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                                                        <span className="sr-only">Unlock</span>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200">
                                                 {tasks.length < 1 ?
                                                     <tr>
                                                         <td className='text-gray-400 py-6'>No Task Data.</td>
+                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -189,6 +215,11 @@ const TaskList: NextPageWithLayout = () => {
                                                             </td><td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                                 <button onClick={() => denyTask(task)} className="text-red-600 hover:text-red-900">
                                                                     Delete
+                                                                </button>
+                                                            </td>
+                                                            <td className="relative whitespace-nowrap py-4 pl-3 pl-8 text-right text-sm font-medium sm:pr-0">
+                                                                <button onClick={() => unlockTask(task)} className="flex items-center text-gray-600 hover:text-gray-900 m-0">
+                                                                    Unlock
                                                                 </button>
                                                             </td>
                                                         </tr>)

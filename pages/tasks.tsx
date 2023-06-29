@@ -232,7 +232,7 @@ const Tasks: NextPageWithLayout = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="https://www.coltonmorrill.com/vaporwave-01.svg" />
             </Head>
-            <div className={modalVisible ? 'absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
+            <div className={modalVisible ? 'fixed top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
                 <Popup title={"Task Completed!"} description={"Please wait for your task to be approved."} action={() => toggleModal()} />
             </div>
             <div className="bg-white py-24 sm:pt-16 sm:py-32 rounded-2xl">
