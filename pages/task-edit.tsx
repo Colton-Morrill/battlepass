@@ -262,6 +262,7 @@ const TaskEdit: NextPageWithLayout = () => {
                                             value={taskCategory}
                                             onChange={(e) => setTaskCategory(e.target.value)}
                                         >
+                                            <option>Unlimited</option>
                                             <option>Daily</option>
                                             <option>Weekly</option>
                                             <option>Bi-Weekly</option>

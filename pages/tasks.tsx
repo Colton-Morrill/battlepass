@@ -276,6 +276,9 @@ const Tasks: NextPageWithLayout = () => {
                                     else if (post.category === 'Weekly' && diff > 604800) {
                                         locked = false;
                                     }
+                                    else if (post.category === 'Unlimited') {
+                                        locked = false;
+                                    }
 
                                     return (<article key={i} className="flex flex-col items-start justify-between">
                                         <div className="relative w-full">
