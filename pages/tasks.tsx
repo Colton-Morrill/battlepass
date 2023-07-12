@@ -129,7 +129,7 @@ const Tasks: NextPageWithLayout = () => {
             if (!user) throw new Error('No user')
 
             let { data, error, status } = await supabase
-                .from('tasks')
+                .from('tasks_by_id')
                 .select('*')
                 .eq('assignee', userId)
             if (error && status !== 406) {
