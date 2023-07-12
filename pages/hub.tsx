@@ -35,6 +35,7 @@ const Hub: NextPageWithLayout = () => {
             let { data, error, status } = await supabase
                 .from('rewards_asc_by_id')
                 .select("*")
+                .eq('assigned_to', user.id)
             if (error && status !== 406) {
                 throw error
             }
@@ -193,41 +194,47 @@ const Hub: NextPageWithLayout = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
-                                {rewards.map((reward, i) => {
-                                    const rewardData = reward;
-                                    return (<article key={i} className="flex flex-col items-start justify-between">
-                                        <div className="relative w-full">
-                                            <img
-                                                src={reward.image_url}
-                                                alt=""
-                                                className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                                            />
-                                            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                                        </div>
-                                        <div className="max-w-xl">
-                                            <div className="group relative">
-                                                <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                                    <a href={reward.reward_name}>
-                                                        <span className="absolute inset-0" />
-                                                        {reward.reward_name}
-                                                    </a>
-                                                </h3>
-                                                <div className="mt-1 flex items-center gap-x-4 text-xs">
-                                                    <p className="text-gray-500">
-                                                        {reward.cost} Points
-                                                    </p>
-                                                </div>
-                                                <p className="mt-2 line-clamp-5 text-sm leading-6 text-gray-600">{reward.description}</p>
+                            {rewards.length < 1 ?
+                                <div className='w-full text-gray-500 italic flex justify-center items-center pt-10'>
+                                    You have no rewards assigned to you.
+                                </div>
+                                :
+                                <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+                                    {rewards.map((reward, i) => {
+                                        const rewardData = reward;
+                                        return (<article key={i} className="flex flex-col items-start justify-between">
+                                            <div className="relative w-full">
+                                                <img
+                                                    src={reward.image_url}
+                                                    alt=""
+                                                    className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                                />
+                                                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                                             </div>
+                                            <div className="max-w-xl">
+                                                <div className="group relative">
+                                                    <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                                        <a href={reward.reward_name}>
+                                                            <span className="absolute inset-0" />
+                                                            {reward.reward_name}
+                                                        </a>
+                                                    </h3>
+                                                    <div className="mt-1 flex items-center gap-x-4 text-xs">
+                                                        <p className="text-gray-500">
+                                                            {reward.cost} Points
+                                                        </p>
+                                                    </div>
+                                                    <p className="mt-2 line-clamp-5 text-sm leading-6 text-gray-600">{reward.description}</p>
+                                                </div>
 
-                                        </div>
-                                        <div className='flex flex-col justify-start gap-2'>
-                                            <button onClick={() => checkForPoints(rewardData)} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Claim Reward</button>
-                                        </div>
-                                    </article>)
-                                })}
-                            </div>
+                                            </div>
+                                            <div className='flex flex-col justify-start gap-2'>
+                                                <button onClick={() => checkForPoints(rewardData)} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Claim Reward</button>
+                                            </div>
+                                        </article>)
+                                    })}
+                                </div>
+                            }
                         </div>
                     </>
                 }

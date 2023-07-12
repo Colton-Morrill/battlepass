@@ -242,7 +242,7 @@ const Approvals: NextPageWithLayout = () => {
               :
               <>
                 <div className="mx-auto text-start">
-                  <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Task Approvals</h2>
+                  <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Approvals</h2>
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none">
                   <div className="sm:flex sm:items-center">

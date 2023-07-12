@@ -121,6 +121,8 @@ const Tasks: NextPageWithLayout = () => {
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([])
 
+    console.log(posts);
+
     async function getTaskData() {
         try {
             setLoading(true)
@@ -232,80 +234,88 @@ const Tasks: NextPageWithLayout = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="https://www.coltonmorrill.com/vaporwave-01.svg" />
             </Head>
-            <div className={modalVisible ? 'fixed top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
-                <Popup title={"Task Completed!"} description={"Please wait for your task to be approved."} action={() => toggleModal()} />
-            </div>
-            <div className="bg-white py-24 sm:pt-16 sm:py-32 rounded-2xl">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Tasks</h2>
-                        <p className="mt-2 text-lg leading-8 text-gray-600">
-                            Complete the below tasks to earn points.
-                        </p>
-                    </div>
-                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {posts.map((post, i) => {
-                            const message = (post.title + " Worth " + post.points)
-                            const postData = post;
-                            const userId = user.id;
+            <div className='min-h-screen'>
+                <div className={modalVisible ? 'fixed top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center' : 'hidden absolute top-0 left-0 right-0 bottom-0 z-50 bg-black/50 flex justify-center items-center'}>
+                    <Popup title={"Task Completed!"} description={"Please wait for your task to be approved."} action={() => toggleModal()} />
+                </div>
+                <div className="bg-white py-24 sm:pt-16 sm:py-32 rounded-2xl">
+                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                        <div className="mx-auto max-w-2xl text-center">
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Tasks</h2>
+                            <p className="mt-2 text-lg leading-8 text-gray-600">
+                                Complete the below tasks to earn points.
+                            </p>
+                        </div>
+                        {posts.length < 1 ?
+                            <div className='w-full text-gray-500 italic flex justify-center items-center pt-10'>
+                                You have no tasks assigned to you.
+                            </div>
+                            :
+                            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                                {posts.map((post, i) => {
+                                    const message = (post.title + " Worth " + post.points)
+                                    const postData = post;
+                                    const userId = user.id;
 
-                            var locked = true;
+                                    var locked = true;
 
-                            var date = new Date(post.datetime);
-                            var formattedDate = date.toLocaleString();
+                                    var date = new Date(post.datetime);
+                                    var formattedDate = date.toLocaleString();
 
-                            var completedDate = new Date(post.datetime).getTime() / 1000;
-                            var currentDate = new Date().getTime() / 1000;
+                                    var completedDate = new Date(post.datetime).getTime() / 1000;
+                                    var currentDate = new Date().getTime() / 1000;
 
-                            var diff = currentDate - completedDate;
+                                    var diff = currentDate - completedDate;
 
-                            if (post.category === 'Daily' && diff > 43200) {
-                                locked = false;
-                            }
-                            else if (post.category === 'Bi-Weekly' && diff > 1.21e+6) {
-                                locked = false;
-                            }
-                            else if (post.category === 'Weekly' && diff > 604800) {
-                                locked = false;
-                            }
+                                    if (post.category === 'Daily' && diff > 43200) {
+                                        locked = false;
+                                    }
+                                    else if (post.category === 'Bi-Weekly' && diff > 1.21e+6) {
+                                        locked = false;
+                                    }
+                                    else if (post.category === 'Weekly' && diff > 604800) {
+                                        locked = false;
+                                    }
 
-                            return (<article key={i} className="flex flex-col items-start justify-between">
-                                <div className="relative w-full">
-                                    <img
-                                        src={post.imageUrl}
-                                        alt=""
-                                        className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                                    />
-                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                                </div>
-                                <div className="max-w-xl">
-                                    <div className="mt-8 flex items-center gap-x-4 text-xs">
-                                        <time dateTime={post.points} className="text-gray-500">
-                                            {post.points} Points
-                                        </time>
-                                        <a
-                                            href={post.category}
-                                            className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                                        >
-                                            {post.category}
-                                        </a>
-                                    </div>
-                                    <div className="group relative">
-                                        <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                            <a href={post.href}>
-                                                <span className="absolute inset-0" />
-                                                {post.title}
-                                            </a>
-                                        </h3>
-                                        <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
-                                    </div>
-                                </div>
-                                <div className='flex flex-col justify-start gap-2'>
-                                    <button disabled={locked} onClick={() => testEmail({ message, postData, userId })} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
-                                    <p className='text-gray-500 w-full text-xs'>{"Last Completed " + formattedDate}</p>
-                                </div>
-                            </article>)
-                        })}
+                                    return (<article key={i} className="flex flex-col items-start justify-between">
+                                        <div className="relative w-full">
+                                            <img
+                                                src={post.imageUrl}
+                                                alt=""
+                                                className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                            />
+                                            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                                        </div>
+                                        <div className="max-w-xl">
+                                            <div className="mt-8 flex items-center gap-x-4 text-xs">
+                                                <time dateTime={post.points} className="text-gray-500">
+                                                    {post.points} Points
+                                                </time>
+                                                <a
+                                                    href={post.category}
+                                                    className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+                                                >
+                                                    {post.category}
+                                                </a>
+                                            </div>
+                                            <div className="group relative">
+                                                <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                                    <a href={post.href}>
+                                                        <span className="absolute inset-0" />
+                                                        {post.title}
+                                                    </a>
+                                                </h3>
+                                                <p className="mt-5 line-clamp-5 text-sm leading-6 text-gray-600">{post.description}</p>
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col justify-start gap-2'>
+                                            <button disabled={locked} onClick={() => testEmail({ message, postData, userId })} className="mt-3 hover:cursor-pointer disabled:hover:cursor-not-allowed rounded-md disabled:bg-gray-400 bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Complete Task</button>
+                                            <p className='text-gray-500 w-full text-xs'>{"Last Completed " + formattedDate}</p>
+                                        </div>
+                                    </article>)
+                                })}
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
